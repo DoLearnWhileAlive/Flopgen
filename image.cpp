@@ -171,8 +171,10 @@ bool Image::add_directory(Directory *dir) {
   for (int i = 0; i < dir->get_file_count(); i++) {
     File *file = (*dir)[i];
 
-    if (file->is_directory() && !add_directory((Directory *) file)) {
-      return false;
+    if (file->is_directory()) {
+      if (!add_directory((Directory *) file)) {
+        return false;
+      }
     } else if (!add_file(file)) {
       return false;
     }
